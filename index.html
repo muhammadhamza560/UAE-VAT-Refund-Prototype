@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VATFlow | UAE VAT Refund Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="brand-mark">V</div>
+                <div><b>VATFlow</b><small>REFUND WORKSPACE</small></div>
+            </div>
+            <p class="nav-label">WORKSPACE</p>
+            <nav>
+                <button class="nav-link active" data-page="dashboard"><span>▦</span>Dashboard</button>
+                <button class="nav-link" data-page="companies"><span>▣</span>Client companies <em
+                        id="companyNavCount">12</em></button>
+                <button class="nav-link" data-page="invoices"><span>▤</span>Invoices</button>
+                <button class="nav-link" data-page="vat"><span>◈</span>VAT summary</button>
+                <button class="nav-link" data-page="claims"><span>↗</span>Refund claims</button>
+                <button class="nav-link" data-page="reports"><span>▥</span>Reports</button>
+            </nav>
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <div class="help-icon">?</div><b>Need a hand?</b>
+                    <p>Keep invoice reviews and refund claims moving.</p><button class="text-button" id="helpBtn">View
+                        quick guide
+                        →</button>
+                </div>
+                <div class="profile">
+                    <div class="avatar">MH</div>
+                    <div><b>Muhammad Hamza</b><small>Firm Administrator</small></div><span
+                        class="profile-more">•••</span>
+                </div>
+            </div>
+        </aside>
+        <main class="main-area">
+            <header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button>
+                <div class="breadcrumbs"><span>Workspace</span><span>/</span><b id="crumbCurrent">Dashboard</b></div>
+                <div class="top-actions"><span class="demo-label"><i></i> DEMO DATA</span><button class="icon-button"
+                        id="notificationBtn" title="Notifications">♧<i></i></button>
+                    <div class="top-avatar">MH</div>
+                </div>
+            </header>
+            <div class="page-content">
+                <section class="page active" id="page-dashboard">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">MONDAY, 26 OCTOBER 2026</p>
+                            <h1>Good evening, Muhammad <span class="sparkle">✦</span></h1>
+                            <p class="subtitle">Here’s what’s happening across your client portfolio.</p>
+                        </div><button class="btn primary" data-goto="invoices">＋ Upload invoice</button>
+                    </div>
+                    <div class="stats four">
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Client companies</span><i class="stat-icon purple">▣</i></div>
+                            <strong class="stat-value" id="dashboardCompanyCount">12</strong>
+                            <p><b class="positive">↑ 2</b> added this quarter</p>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Invoices this period</span><i class="stat-icon blue">▤</i></div>
+                            <strong class="stat-value" id="dashboardInvoiceCount">248</strong>
+                            <p><b class="positive">↑ 12.8%</b> vs. last period</p>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>VAT credit balance</span><i class="stat-icon teal">◈</i></div>
+                            <strong class="stat-value">AED 184,620</strong>
+                            <p>Across <b>7 companies</b></p>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Claims in progress</span><i class="stat-icon amber">↗</i></div>
+                            <strong class="stat-value" id="dashboardClaimsCount">7</strong>
+                            <p><b class="attention">3 need attention</b></p>
+                        </article>
+                    </div>
+                    <div class="dashboard-grid">
+                        <article class="panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>VAT position overview</h2>
+                                    <p>Illustrative portfolio totals · AED</p>
+                                </div><select id="chartPeriod" class="small-select">
+                                    <option>Last 6 months</option>
+                                    <option>Year to date</option>
+                                    <option>Last 12 months</option>
+                                </select>
+                            </div>
+                            <div class="legend"><span><i class="dot violet"></i>Input VAT</span><span><i
+                                        class="dot mint"></i>Output
+                                    VAT</span></div>
+                            <div class="chart-area">
+                                <div class="axis">
+                                    <span>120k</span><span>90k</span><span>60k</span><span>30k</span><span>0</span>
+                                </div>
+                                <div class="chart">
+                                    <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i></div>
+                                    <div class="bars" id="chartBars"></div>
+                                </div>
+                            </div>
+                            <div class="chart-note">✓ Portfolio totals are fictional sample data for prototype testing.
+                            </div>
+                        </article>
+                        <article class="panel attention-panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Needs your attention</h2>
+                                    <p>Items that may need a follow-up</p>
+                                </div><span class="count-badge">3</span>
+                            </div>
+                            <div class="attention-item"><i class="alert-icon orange">!</i>
+                                <div><b>Invoices awaiting review</b>
+                                    <p>Al Noor Trading LLC · 6 invoices</p><span class="mini-status orange-text">Review
+                                        required</span>
+                                </div><button class="arrow" data-goto="invoices">→</button>
+                            </div>
+                            <div class="attention-item"><i class="alert-icon blue">↗</i>
+                                <div><b>Claim documentation</b>
+                                    <p>Desert Line Services · Q3 2026</p><span class="mini-status blue-text">Documents
+                                        pending</span>
+                                </div><button class="arrow" data-goto="claims">→</button>
+                            </div>
+                            <div class="attention-item"><i class="alert-icon purple">◷</i>
+                                <div><b>Tax period closing soon</b>
+                                    <p>Blue Dune Supplies · Q3 2026</p><span class="mini-status purple-text">Check
+                                        period</span>
+                                </div><button class="arrow" data-goto="vat">→</button>
+                            </div><button class="btn secondary full" id="viewTasks">View all tasks</button>
+                        </article>
+                    </div>
+                    <article class="panel table-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Recent refund claims</h2>
+                                <p>Portfolio activity · fictional demonstration records</p>
+                            </div><button class="text-button" data-goto="claims">View all claims →</button>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>CLAIM ID</th>
+                                        <th>CLIENT COMPANY</th>
+                                        <th>TAX PERIOD</th>
+                                        <th>CLAIM AMOUNT</th>
+                                        <th>LAST UPDATED</th>
+                                        <th>STATUS</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentClaimsBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <p class="prototype-note">Prototype only · All financial values and records are fictional sample
+                        data, not tax
+                        advice or official FTA calculations.</p>
+                </section>
+                <section class="page" id="page-companies">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">CLIENT PORTFOLIO</p>
+                            <h1>Client companies</h1>
+                            <p class="subtitle">Manage company profiles and their VAT workspaces.</p>
+                        </div><button class="btn primary" id="addCompanyBtn">＋ Add company</button>
+                    </div>
+                    <div class="stats three">
+                        <article class="stat-card"><span>Total companies</span><strong class="stat-value"
+                                id="companyTotal">12</strong>
+                            <p>Managed by Muhammad Hamza</p>
+                        </article>
+                        <article class="stat-card"><span>Active tax periods</span><strong class="stat-value">18</strong>
+                            <p>Sample records</p>
+                        </article>
+                        <article class="stat-card"><span>Need review</span><strong class="stat-value">3</strong>
+                            <p>Invoice or claim items</p>
+                        </article>
+                    </div>
+                    <article class="panel table-panel">
+                        <div class="toolbar"><label class="search-box">⌕ <input id="companySearch"
+                                    placeholder="Search company or TRN…"></label><select id="companyFilter"
+                                class="filter-select">
+                                <option value="all">All companies</option>
+                                <option>Active</option>
+                                <option>Review needed</option>
+                            </select></div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>COMPANY</th>
+                                        <th>TRN</th>
+                                        <th>VAT PERIOD</th>
+                                        <th>OPEN INVOICES</th>
+                                        <th>VAT POSITION</th>
+                                        <th>STATUS</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="companiesBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="table-footer"><span id="companyRowsText"></span><span>Prototype records</span></div>
+                    </article>
+                    <p class="prototype-note">Company profiles stay in this browser session only. Production use
+                        requires
+                        authentication, a database, and server-side access controls.</p>
+                </section>
+                <section class="page" id="page-invoices">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">DOCUMENT PROCESSING</p>
+                            <h1>Invoices</h1>
+                            <p class="subtitle">Upload invoices, review extracted fields, and confirm records.</p>
+                        </div><button class="btn primary" id="jumpUpload">＋ Upload invoice</button>
+                    </div>
+                    <div class="steps">
+                        <div class="step done"><i>1</i>
+                            <div><b>Upload</b><small>Select document</small></div>
+                        </div><span></span>
+                        <div class="step current"><i>2</i>
+                            <div><b>Review fields</b><small>Check extracted data</small></div>
+                        </div><span></span>
+                        <div class="step"><i>3</i>
+                            <div><b>Confirm</b><small>Save reviewed record</small></div>
+                        </div>
+                    </div>
+                    <div class="invoice-grid">
+                        <article class="panel form-panel" id="uploadPanel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Upload invoice</h2>
+                                    <p>PDF, JPG or PNG · Local prototype only</p>
+                                </div><i class="stat-icon purple">↑</i>
+                            </div><label class="dropzone" id="dropzone" for="invoiceFile"><i>↑</i><b>Drop your invoice
+                                    here</b><span>or click to browse files</span><small>Maximum 10 MB · PDF, JPG,
+                                    PNG</small><input type="file" id="invoiceFile"
+                                    accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" hidden></label>
+                            <div class="selected-file hidden" id="selectedFile"><i>PDF</i>
+                                <div><b id="selectedFileName">invoice.pdf</b><small id="selectedFileMeta"></small></div>
+                                <button class="text-button" id="removeFile">Remove</button>
+                            </div>
+                            <div class="field"><label for="invoiceCompany">Client company</label><select
+                                    id="invoiceCompany"></select>
+                            </div>
+                            <div class="field"><label for="invoiceType">Invoice type</label><select id="invoiceType">
+                                    <option>Purchase invoice</option>
+                                    <option>Sales invoice</option>
+                                    <option>Credit note</option>
+                                </select></div><button class="btn primary full" id="simulateOcr" disabled>Extract
+                                invoice
+                                fields</button>
+                            <p class="hint">OCR is simulated. No file is uploaded to a server.</p>
+                        </article>
+                        <article class="panel form-panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Extracted fields</h2>
+                                    <p>Review all values before confirming</p>
+                                </div><span class="status pending" id="ocrStatus">Awaiting file</span>
+                            </div>
+                            <div class="ocr-banner" id="ocrBanner"><i>✧</i>
+                                <div><b>Ready when you are</b>
+                                    <p>Select a sample invoice to preview simulated OCR results.</p>
+                                </div>
+                            </div>
+                            <div class="review-form">
+                                <div class="field-grid">
+                                    <div class="field"><label for="supplier">Supplier name</label><input id="supplier"
+                                            placeholder="Supplier legal name"></div>
+                                    <div class="field"><label for="supplierTrn">Supplier TRN</label><input
+                                            id="supplierTrn" placeholder="15-digit TRN"></div>
+                                    <div class="field"><label for="invoiceNumber">Invoice number</label><input
+                                            id="invoiceNumber" placeholder="INV-0001"></div>
+                                    <div class="field"><label for="invoiceDate">Invoice date</label><input
+                                            id="invoiceDate" type="date">
+                                    </div>
+                                    <div class="field"><label for="netAmount">Net amount (AED)</label><input
+                                            id="netAmount" type="number" min="0" step="0.01" placeholder="0.00"></div>
+                                    <div class="field"><label for="vatAmount">VAT amount (AED)</label><input
+                                            id="vatAmount" type="number" min="0" step="0.01" placeholder="0.00"></div>
+                                </div>
+                                <div class="gross-row"><span>Calculated gross amount</span><b id="grossAmount">AED
+                                        0.00</b></div><label class="check-row"><input type="checkbox"
+                                        id="reviewConfirmed"> I have checked the fields against the
+                                    source document.</label><button class="btn primary full" id="confirmInvoice"
+                                    disabled>Confirm reviewed
+                                    invoice</button>
+                            </div>
+                        </article>
+                    </div>
+                    <article class="panel table-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Recently processed invoices</h2>
+                                <p>Sample and session-added records</p>
+                            </div><span class="count-badge" id="invoiceCount">4</span>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>INVOICE</th>
+                                        <th>COMPANY</th>
+                                        <th>SUPPLIER</th>
+                                        <th>INVOICE DATE</th>
+                                        <th>VAT AMOUNT</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoicesBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <p class="prototype-note">Production OCR needs a document-processing service, secure storage, and
+                        human
+                        verification before VAT calculations.</p>
+                </section>
+                <section class="page" id="page-vat">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">TAX POSITION</p>
+                            <h1>VAT summary</h1>
+                            <p class="subtitle">Review illustrative input VAT, output VAT, and tax-period balances.</p>
+                        </div><button class="btn secondary" id="vatExport">↓ Export summary</button>
+                    </div>
+                    <article class="panel filter-panel">
+                        <div class="filter-grid">
+                            <div class="field"><label for="vatCompany">Client company</label><select
+                                    id="vatCompany"></select></div>
+                            <div class="field"><label for="vatPeriod">Tax period</label><select id="vatPeriod">
+                                    <option>Q3 2026</option>
+                                    <option>Q2 2026</option>
+                                    <option>Q1 2026</option>
+                                </select></div>
+                            <div class="field"><label for="vatBasis">Calculation view</label><select id="vatBasis">
+                                    <option>Standard rate illustration</option>
+                                    <option>Review adjustments</option>
+                                </select></div>
+                        </div>
+                        <div class="warning">ⓘ Sample calculation only. Confirm applicable UAE VAT treatment and current
+                            FTA rules
+                            with a qualified tax professional.</div>
+                    </article>
+                    <div class="stats three">
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Output VAT</span><i class="stat-icon blue">↗</i></div><strong
+                                class="stat-value" id="outputVat">AED 42,500.00</strong>
+                            <p>Illustrative VAT on sales</p>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Input VAT</span><i class="stat-icon purple">↙</i></div><strong
+                                class="stat-value" id="inputVat">AED 57,200.00</strong>
+                            <p>Illustrative VAT on purchases</p>
+                        </article>
+                        <article class="stat-card">
+                            <div class="stat-top"><span>Net VAT position</span><i class="stat-icon teal">◈</i></div>
+                            <strong class="stat-value" id="netVat">AED 14,700.00</strong>
+                            <p id="netVatFoot">Illustrative credit position</p>
+                        </article>
+                    </div>
+                    <div class="dashboard-grid">
+                        <article class="panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Calculation breakdown</h2>
+                                    <p>Example figures for selected company and period</p>
+                                </div>
+                            </div>
+                            <div class="breakdown">
+                                <div><span>Standard-rated sales (net)</span><b>AED 850,000.00</b></div>
+                                <div><span>Output VAT (illustrative)</span><b id="breakdownOutput">AED 42,500.00</b>
+                                </div>
+                                <div><span>Eligible purchases (net)</span><b>AED 1,144,000.00</b></div>
+                                <div><span>Input VAT (illustrative)</span><b id="breakdownInput">AED 57,200.00</b></div>
+                                <div><span>Adjustments</span><b>AED 0.00</b></div>
+                                <div class="breakdown-total"><span>Net position (input less output)</span><b
+                                        id="breakdownNet">AED
+                                        14,700.00 credit</b></div>
+                            </div>
+                        </article>
+                        <article class="panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Before you prepare a claim</h2>
+                                    <p>Internal review checklist</p>
+                                </div>
+                            </div>
+                            <div class="checklist"><label><input type="checkbox"> Invoice records
+                                    reviewed</label><label><input type="checkbox"> Input VAT eligibility
+                                    assessed</label><label><input type="checkbox"> Adjustments
+                                    and credit notes reconciled</label><label><input type="checkbox"> Figures match
+                                    supporting
+                                    records</label></div><button class="btn primary full panel-button"
+                                data-goto="claims">Continue to
+                                refund claims →</button>
+                        </article>
+                    </div>
+                    <p class="prototype-note">A VAT credit balance is not automatically an approved refund amount.
+                        Eligibility and
+                        evidence must be assessed separately.</p>
+                </section>
+                <section class="page" id="page-claims">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">REFUND WORKFLOW</p>
+                            <h1>Refund claims</h1>
+                            <p class="subtitle">Track internal preparation separately from verified external submission
+                                status.</p>
+                        </div><button class="btn primary" id="newClaimBtn">＋ Create draft claim</button>
+                    </div>
+                    <div class="claim-summary">
+                        <div><span>Draft</span><b id="draftCount">2</b></div>
+                        <div><span>Under review</span><b id="reviewCount">1</b></div>
+                        <div><span>Ready for submission</span><b id="readyCount">1</b></div>
+                        <div><span>Submitted externally</span><b id="submittedCount">1</b></div>
+                    </div>
+                    <article class="panel table-panel">
+                        <div class="toolbar"><label class="search-box">⌕ <input id="claimSearch"
+                                    placeholder="Search claim ID or company…"></label><select id="claimFilter"
+                                class="filter-select">
+                                <option value="all">All statuses</option>
+                                <option>Draft</option>
+                                <option>Under Review</option>
+                                <option>Changes Requested</option>
+                                <option>Internally Approved</option>
+                                <option>Ready for Submission</option>
+                                <option>Submitted Externally</option>
+                                <option>Further Information Requested</option>
+                                <option>Approved Externally</option>
+                                <option>Paid</option>
+                                <option>Rejected / Withdrawn</option>
+                            </select></div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>CLAIM ID</th>
+                                        <th>CLIENT COMPANY</th>
+                                        <th>PERIOD</th>
+                                        <th>CLAIM AMOUNT</th>
+                                        <th>INTERNAL STATUS</th>
+                                        <th>EXTERNAL STATUS</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="claimsBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="table-footer"><span id="claimRowsText"></span><span>External statuses manually
+                                recorded</span>
+                        </div>
+                    </article>
+                    <article class="panel workflow-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Claim workflow</h2>
+                                <p>Suggested internal process for the firm</p>
+                            </div>
+                        </div>
+                        <div class="claim-flow">
+                            <div><i>01</i><b>Draft</b><small>Collect periods and records</small></div><span>→</span>
+                            <div><i>02</i><b>Review</b><small>Validate evidence and totals</small></div><span>→</span>
+                            <div><i>03</i><b>Internal approval</b><small>Authorized firm sign-off</small></div>
+                            <span>→</span>
+                            <div><i>04</i><b>Submit externally</b><small>Authorized user uses EmaraTax</small></div>
+                            <span>→</span>
+                            <div><i>05</i><b>Track outcome</b><small>Record verified updates</small></div>
+                        </div>
+                        <div class="warning">This prototype does not connect to EmaraTax or submit anything to the FTA.
+                        </div>
+                    </article>
+                    <p class="prototype-note">External outcomes should only be recorded after an authorized user
+                        verifies them
+                        through the official process.</p>
+                </section>
+                <section class="page" id="page-reports">
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">PORTFOLIO INSIGHTS</p>
+                            <h1>Reports</h1>
+                            <p class="subtitle">Prepare simple summaries for internal review and client follow-up.</p>
+                        </div><button class="btn primary" id="exportReport">↓ Export CSV</button>
+                    </div>
+                    <article class="panel filter-panel">
+                        <div class="filter-grid four-cols">
+                            <div class="field"><label for="reportType">Report type</label><select id="reportType">
+                                    <option value="vat">VAT position summary</option>
+                                    <option value="claims">Refund claim register</option>
+                                    <option value="invoices">Invoice register</option>
+                                    <option value="companies">Client company register</option>
+                                </select></div>
+                            <div class="field"><label for="reportCompany">Client company</label><select
+                                    id="reportCompany"></select>
+                            </div>
+                            <div class="field"><label for="reportPeriod">Tax period</label><select id="reportPeriod">
+                                    <option>Q3 2026</option>
+                                    <option>Q2 2026</option>
+                                    <option>Q1 2026</option>
+                                    <option>All periods</option>
+                                </select></div>
+                            <div class="field"><label for="reportFormat">Format</label><select id="reportFormat">
+                                    <option>CSV spreadsheet</option>
+                                    <option>Print / Save as PDF</option>
+                                </select></div>
+                        </div><button class="btn primary" id="generateReport">Generate report</button>
+                    </article>
+                    <article class="panel table-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2 id="reportTitle">VAT position summary</h2>
+                                <p id="reportSubtitle">Q3 2026 · All companies · Illustrative data</p>
+                            </div><span class="status ready">Preview</span>
+                        </div>
+                        <div class="table-wrap" id="reportTableWrap"></div>
+                    </article>
+                    <div class="report-cards">
+                        <article class="panel mini-report"><i class="stat-icon purple">▥</i><b>VAT position</b>
+                            <p>Summarize input VAT, output VAT, and net position by company.</p><button
+                                class="text-button" data-report="vat">Preview report →</button>
+                        </article>
+                        <article class="panel mini-report"><i class="stat-icon teal">↗</i><b>Refund claims</b>
+                            <p>Review internal workflow status and recorded claim amounts.</p><button
+                                class="text-button" data-report="claims">Preview report →</button>
+                        </article>
+                        <article class="panel mini-report"><i class="stat-icon blue">▤</i><b>Invoice register</b>
+                            <p>Review invoice records, status, and VAT amounts.</p><button class="text-button"
+                                data-report="invoices">Preview report →</button>
+                        </article>
+                    </div>
+                    <p class="prototype-note">Exports contain sample or locally entered prototype data. Do not use them
+                        for tax
+                        filing.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-heading">
+                <div>
+                    <p class="eyebrow">WORKSPACE ACTION</p>
+                    <h2 id="modalTitle">Add company</h2>
+                </div><button class="icon-button" id="closeModal">×</button>
+            </div>
+            <form id="modalForm">
+                <div id="modalFields"></div>
+                <div class="modal-actions"><button type="button" class="btn secondary"
+                        id="cancelModal">Cancel</button><button type="submit" class="btn primary"
+                        id="modalSubmit">Save</button></div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
